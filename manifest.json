@@ -1,7 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Comet Pro Ultra - Multi API Assistant",
-  "description": "Universal AI assistant supporting unlimited API keys from OpenAI, Grok, Gemini, Anthropic, and custom endpoints with streaming responses",
+  "name": "Chris Assistant",  "description": "Universal AI assistant supporting unlimited API keys from OpenAI, Grok, Gemini, Anthropic, and custom endpoints with streaming responses",
   "version": "1.0.0",
   "permissions": [
     "storage",
