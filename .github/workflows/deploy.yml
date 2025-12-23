@@ -1,0 +1,66 @@
+name: Build and Deploy Extension
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Create extension package
+      run: |
+        mkdir -p dist
+        cp manifest.json background.js README.md LICENSE dist/
+        
+        # Create popup files from COMPLETE_EXTENSION_FILES.md
+        echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Comet Pro Ultra</title><link rel="stylesheet" href="popup.css"></head><body><div class="container"><h1>🚀 Comet Pro Ultra</h1><div class="profile-selector"><label>Provider:</label><select id="provider"><option value="openai">OpenAI</option><option value="grok">Grok</option><option value="google">Gemini</option><option value="anthropic">Claude</option><option value="custom">Custom</option></select></div><div class="profile-selector"><label>Profile:</label><select id="profile"></select></div><div class="model-selector"><label>Model:</label><input type="text" id="model" placeholder="gpt-4"></div><div class="prompt-area"><textarea id="prompt" placeholder="Ask anything..."></textarea></div><div class="actions"><button id="send" class="primary">Send</button><button id="settings">⚙️ Settings</button></div><div id="response" class="response hidden"></div><div id="error" class="error hidden"></div></div><script src="popup.js"></script></body></html>' > dist/popup.html
+        
+        echo 'chrome.runtime.onMessage.addListener((m,s,r)=>{if(m.type==="CONTEXT_MENU_ACTION")alert("Comet: "+m.prompt)});' > dist/content-script.js
+        
+        # Create minimal icons
+        mkdir -p dist/icons
+        
+    - name: Create extension archive
+      run: |
+        cd dist
+        zip -r ../comet-pro-ultra-v${{ github.run_number }}.zip .
+        cd ..
+        
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: extension-package
+        path: comet-pro-ultra-v${{ github.run_number }}.zip
+        
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: comet-pro-ultra-v${{ github.run_number }}.zip
+        body: |
+          ## Comet Pro Ultra Multi-API Extension
+          
+          ### Installation
+          1. Download the zip file below
+          2. Extract it
+          3. Open chrome://extensions/
+          4. Enable Developer mode
+          5. Load unpacked extension
+          
+          ### Features
+          - Multiple API providers (OpenAI, Grok, Gemini, Claude, Custom)
+          - Unlimited API keys per provider
+          - Streaming responses
+          - Context menu actions
+          - Zero confirmations
+          
+          **Repository**: https://github.com/Chris3777/comet-pro-ultra-multiapi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
