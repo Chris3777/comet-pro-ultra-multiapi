@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chris Assistant</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🚀 Chris Assistant</h1>
+    </div>
+
+    <div class="controls">
+      <div class="form-group">
+        <label for="provider">Provider:</label>
+        <select id="provider">
+          <option value="openai">OpenAI (GPT)</option>
+          <option value="grok">Grok (xAI)</option>
+          <option value="google">Google Gemini</option>
+          <option value="anthropic">Anthropic Claude</option>
+          <option value="custom">Custom API</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="profile">Profile:</label>
+        <select id="profile">
+          <option>No profiles - Add in Settings</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="model">Model:</label>
+        <input type="text" id="model" placeholder="e.g., gpt-4, grok-beta">
+      </div>
+
+      <div class="form-group">
+        <label for="prompt">Your Message:</label>
+        <textarea id="prompt" rows="5" placeholder="Type your message here... (Ctrl+Enter to send)"></textarea>
+      </div>
+
+      <button id="send" class="btn-primary">Send</button>
+    </div>
+
+    <div id="response" class="response hidden"></div>
+    <div id="error" class="error hidden"></div>
+
+    <div class="footer">
+      <button id="settings" class="btn-secondary">⚙️ Settings</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
