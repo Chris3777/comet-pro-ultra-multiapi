@@ -1,7 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Chris Assistant",  "description": "Universal AI assistant supporting unlimited API keys from OpenAI, Grok, Gemini, Anthropic, and custom endpoints with streaming responses",
-  "version": "1.0.0",
+  "name": "Chris Agent", "description": "Universal AI assistant supporting unlimited API keys from OpenAI, Grok, Gemini and Anthropic",  "version": "1.0.0",
   "permissions": [
     "storage",
     "contextMenus",
