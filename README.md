@@ -1,167 +1,172 @@
-# 🚀 Comet Pro Ultra - Multi-API Assistant Extension
+# 🤖 Chris Agent - Multi-API AI Assistant
 
-> Universal browser extension supporting unlimited API keys from OpenAI, Grok, Gemini, Anthropic, and custom endpoints
+> A beautiful web-based AI chat interface supporting multiple API providers with stunning music-themed designs
 
-[![License](https://img.shields.io/badge/License-EPL%202.0-blue.svg)](LICENSE)
-[![Build Status](https://github.com/Chris3777/comet-pro-ultra-multiapi/workflows/Build%20and%20Deploy%20Extension/badge.svg)](https://github.com/Chris3777/comet-pro-ultra-multiapi/actions)
+🌐 **Live Demo**: [https://comet-pro-ultra-multiapi.vercel.app](https://comet-pro-ultra-multiapi.vercel.app)
 
 ## ✨ Features
 
-- 🔑 **Unlimited API Keys** - Store multiple keys per provider
-- 🌐 **5+ Providers Supported**:
-  - OpenAI (GPT-4, GPT-3.5-turbo, etc.)
-  - Grok/xAI (Grok Beta, Grok-2)
-  - Google Gemini (Gemini Pro, Gemini Ultra)
-  - Anthropic Claude (Claude 3 Sonnet, Opus, Haiku)
-  - Custom HTTP endpoints
-- ⚡ **Streaming Responses** - Real-time output
-- 🎯 **Context Menus** - Right-click to summarize, translate, explain
-- 🔒 **Secure Storage** - Uses chrome.storage.local with encryption ready
-- 🌍 **Cross-Browser** - Works on Chrome, Edge, Brave, Firefox
-- 🚀 **Fast & Lightweight** - Manifest V3, event-driven
+### 🎨 **5 Amazing Music Themes**
+- 🎵 **Reggae** - Green, gold & red vibes
+- 🎤 **Rap** - Black, red & yellow energy
+- ✨ **Pop** - Pink, cyan & gold sparkle
+- 🎧 **Techno** - Neon green & blue pulse
+- 🎼 **Classic** - Brown & gold elegance
 
-## 📦 Installation
+### 🔑 **Multi-API Provider Support**
+- **OpenAI** (GPT-4, GPT-3.5-turbo)
+- **Anthropic** Claude (Sonnet, Opus, Haiku)
+- **Google** Gemini (Pro, Ultra)
+- **Grok** (xAI Beta, Grok-2)
+- **Custom Endpoints** (Any OpenAI-compatible API)
 
-### From Releases
-1. Download the latest `.zip` from [Releases](https://github.com/Chris3777/comet-pro-ultra-multiapi/releases)
-2. Extract the zip file
-3. Open `chrome://extensions/` (Chrome/Edge/Brave)
-4. Enable "Developer mode"
-5. Click "Load unpacked" and select the extracted folder
+### 💬 **Smart Features**
+- Real-time streaming responses
+- Conversation history (saves automatically)
+- Guest mode (no login required)
+- Keyboard shortcuts (Ctrl+Enter to send)
+- Theme persistence (remembers your choice)
+- Mobile-friendly responsive design
 
-### From Source
+## 🚀 Quick Start
+
+### Option 1: Use Online (Easiest)
+
+1. **Visit**: [https://comet-pro-ultra-multiapi.vercel.app](https://comet-pro-ultra-multiapi.vercel.app)
+2. **Get an API key** from your preferred provider:
+   - OpenAI: [platform.openai.com/api-keys](https://platform.openai.com/api-keys)
+   - Anthropic: [console.anthropic.com](https://console.anthropic.com)
+   - Google: [makersuite.google.com/app/apikey](https://makersuite.google.com/app/apikey)
+   - Grok: [x.ai/api](https://x.ai/api)
+3. **Enter your key** in the app
+4. **Start chatting!**
+
+### Option 2: Run Locally
+
 ```bash
 git clone https://github.com/Chris3777/comet-pro-ultra-multiapi.git
 cd comet-pro-ultra-multiapi
-# Load the extension folder in your browser
+# Open index.html in your browser
 ```
 
-## 🔧 Setup
+### Option 3: Deploy Your Own
 
-1. **Click the extension icon** in your browser toolbar
-2. **Click ⚙️ Settings**
-3. **Add your API keys**:
-   - Select provider tab (OpenAI, Grok, Google, etc.)
-   - Click "+ Add Profile"
-   - Enter profile name and API key
-   - Save
+**Deploy to Vercel** (1-click):
 
-### Getting API Keys
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Chris3777/comet-pro-ultra-multiapi)
 
-- **OpenAI**: https://platform.openai.com/api-keys
-- **Grok/xAI**: https://x.ai/api
-- **Google Gemini**: https://makersuite.google.com/app/apikey
-- **Anthropic**: https://console.anthropic.com/
+## 📖 How to Use
 
-## 🎮 Usage
+### 1. Choose Your Theme
+Click the theme buttons in the top-right:
+- 🎵 Reggae
+- 🎤 Rap  
+- ✨ Pop
+- 🎧 Techno
+- 🎼 Classic
 
-### Popup Interface
-1. Click extension icon
-2. Select provider and profile
-3. Enter model name (optional)
-4. Type your prompt
-5. Press Ctrl+Enter or click Send
+### 2. Select API Provider
+Use the dropdown to choose:
+- OpenAI
+- Anthropic Claude
+- Google Gemini
+- Grok (xAI)
+- Custom Endpoint
 
-### Context Menu
-1. Select text on any webpage
-2. Right-click
-3. Choose:
-   - "Summarize with Comet Pro"
-   - "Translate with Comet Pro"
-   - "Explain with Comet Pro"
+### 3. Enter Your API Key
+Paste your API key in the password field.
+**Note**: Your key is stored locally in your browser and never sent anywhere except to the API provider.
 
-## 🏗️ Project Structure
+### 4. Optional: Specify Model
+Enter a specific model name (e.g., `gpt-4`, `claude-3-sonnet-20240229`)
+or leave blank to use the default.
+
+### 5. Start Chatting!
+Type your message and:
+- Press **Ctrl+Enter** to send, or
+- Click the **Send** button
+
+### 6. View History
+Click the **≡** button on the right to see past conversations.
+
+## 🎯 Keyboard Shortcuts
+
+- `Ctrl+Enter` - Send message
+- Click theme emoji buttons to change themes
+- Side panel ≡ - Toggle conversation history
+
+## 🔒 Privacy & Security
+
+✅ **Your data is safe**:
+- API keys stored locally in your browser
+- No data sent to any server except the AI provider you choose
+- Conversations saved in browser localStorage
+- Open source - verify the code yourself
+
+## 🛠️ Technical Details
+
+- **Single HTML File** - All code in one file (styles + JS included)
+- **No Dependencies** - Pure vanilla JavaScript
+- **No Build Step** - Just open and run
+- **Modern Browsers** - Works on Chrome, Firefox, Safari, Edge
+- **Mobile Friendly** - Responsive design
+
+## 🌟 Project Structure
 
 ```
 comet-pro-ultra-multiapi/
-├── manifest.json          # Extension configuration
-├── background.js          # Service worker (API router)
-├── popup.html            # Main popup interface
-├── popup.css             # Popup styling
-├── popup.js              # Popup logic
-├── options.html          # Settings page
-├── options.css           # Settings styling
-├── options.js            # Settings logic
-├── content-script.js     # Page interaction
-├── icons/                # Extension icons
-└── .github/
-    └── workflows/
-        └── deploy.yml    # Auto-deployment
-```
-
-## 🚀 Automated Deployment
-
-This extension uses GitHub Actions for automated builds:
-
-1. **On every push to main**: Creates build artifact
-2. **On version tags** (`v*`): Creates GitHub release with zip
-
-### Create a Release
-```bash
-git tag v1.0.0
-git push origin v1.0.0
-```
-
-## 🔒 Security
-
-- API keys stored locally in `chrome.storage.local`
-- No keys sent to external servers
-- Optional encryption with user passphrase (coming soon)
-- Minimal permissions (only what's needed)
-
-## 🛠️ Development
-
-```bash
-# Clone the repo
-git clone https://github.com/Chris3777/comet-pro-ultra-multiapi.git
-cd comet-pro-ultra-multiapi
-
-# Make changes
-# Test in browser with "Load unpacked"
-
-# Commit and push
-git add .
-git commit -m "Your changes"
-git push
-```
-
-## 📝 API Provider Details
-
-### OpenAI
-```javascript
-Base URL: https://api.openai.com/v1
-Models: gpt-4, gpt-3.5-turbo, gpt-4-turbo
-Auth: Bearer token
-```
-
-### Grok (xAI)
-```javascript
-Base URL: https://api.x.ai/v1
-Models: grok-beta, grok-2
-Auth: Bearer token
-```
-
-### Google Gemini
-```javascript
-Base URL: https://generativelanguage.googleapis.com/v1beta
-Models: gemini-pro, gemini-ultra
-Auth: API key in URL
-```
-
-### Anthropic Claude
-```javascript
-Base URL: https://api.anthropic.com/v1
-Models: claude-3-sonnet-20240229, claude-3-opus-20240229
-Auth: x-api-key header
+├── index.html          # Complete web app (all-in-one)
+├── vercel.json         # Vercel deployment config
+├── README.md           # This file
+└── LICENSE             # EPL 2.0 License
 ```
 
 ## 🤝 Contributing
 
-Contributions welcome! Please:
+Contributions welcome! 
+
 1. Fork the repository
-2. Create a feature branch
+2. Create your feature branch
 3. Make your changes
 4. Submit a pull request
+
+## 📝 API Provider Setup
+
+### OpenAI
+```
+Provider: OpenAI
+Model: gpt-4, gpt-3.5-turbo, gpt-4-turbo
+Get Key: https://platform.openai.com/api-keys
+```
+
+### Anthropic Claude
+```
+Provider: Anthropic
+Model: claude-3-sonnet-20240229, claude-3-opus-20240229
+Get Key: https://console.anthropic.com
+```
+
+### Google Gemini
+```
+Provider: Google
+Model: gemini-pro, gemini-ultra
+Get Key: https://makersuite.google.com/app/apikey
+```
+
+### Grok (xAI)
+```
+Provider: Grok
+Model: grok-beta, grok-2
+Get Key: https://x.ai/api
+```
+
+## 🎨 Theme Customization
+
+Each theme features unique:
+- Background gradients
+- Color schemes
+- Animations (especially Techno with pulse effect)
+- Button styles
 
 ## 📄 License
 
@@ -169,17 +174,35 @@ Eclipse Public License 2.0 - see [LICENSE](LICENSE)
 
 ## 🔗 Links
 
-- **Repository**: https://github.com/Chris3777/comet-pro-ultra-multiapi
-- **Issues**: https://github.com/Chris3777/comet-pro-ultra-multiapi/issues
-- **Releases**: https://github.com/Chris3777/comet-pro-ultra-multiapi/releases
+- **Live App**: [comet-pro-ultra-multiapi.vercel.app](https://comet-pro-ultra-multiapi.vercel.app)
+- **Repository**: [github.com/Chris3777/comet-pro-ultra-multiapi](https://github.com/Chris3777/comet-pro-ultra-multiapi)
+- **Issues**: [github.com/Chris3777/comet-pro-ultra-multiapi/issues](https://github.com/Chris3777/comet-pro-ultra-multiapi/issues)
 
 ## 💡 Tips
 
-- Use Ctrl+Enter to send messages quickly
-- Create multiple profiles for different use cases (e.g., "GPT-4 Main", "GPT-3.5 Fast")
-- Custom endpoints can use any OpenAI-compatible API
-- Right-click context menus work on any selected text
+- **Switch themes** anytime - your conversation continues
+- **History saves automatically** - reload the page anytime
+- **Use Ctrl+Enter** for faster message sending
+- **Create multiple profiles** by using different tabs
+- **Guest mode** means no sign-up needed!
+
+## 🐛 Troubleshooting
+
+**API not working?**
+- Check your API key is correct
+- Ensure you have credits/quota with the provider
+- Try a different model name
+
+**History not saving?**
+- Check browser localStorage isn't disabled
+- Try clearing cache and reload
+
+**Theme not changing?**
+- Hard refresh (Ctrl+F5)
+- Clear browser cache
 
 ---
 
-**Made with ❤️ for the AI community**
+**Made with ❤️ by Chris**
+
+*Enjoy chatting with Chris Agent!* 🚀
