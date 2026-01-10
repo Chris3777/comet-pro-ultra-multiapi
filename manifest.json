@@ -1,6 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Chris Agent", "description": "Universal AI assistant supporting unlimited API keys from OpenAI, Grok, Gemini and Anthropic",  "version": "1.0.0",
+  "name": "Chris Agent",
+  "description": "Universal AI assistant supporting unlimited API keys from OpenAI, Grok, Gemini and Anthropic",
+  "version": "1.0.0",
   "permissions": [
     "storage",
     "contextMenus",
@@ -16,27 +18,6 @@
     "type": "module"
   },
   "action": {
-    "default_popup": "popup.html",
-    "default_icon": {
-      "16": "icons/icon16.png",
-      "48": "icons/icon48.png",
-      "128": "icons/icon128.png"
-    }
-  },
-  "options_ui": {
-    "page": "options.html",
-    "open_in_tab": true
-  },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content-script.js"],
-      "run_at": "document_end"
-    }
-  ],
-  "icons": {
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
+    "default_popup": "popup.html"
   }
 }
