@@ -3,239 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chris Agent - Multi-API AI Assistant</title>
-    <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Segoe UI', sans-serif; transition: all 0.3s; min-height: 100vh; }
-[data-theme="reggae"] { background: linear-gradient(135deg, #006400 0%, #FFD700 50%, #FF0000 100%); }
-[data-theme="rap"] { background: linear-gradient(135deg, #000 0%, #FF0000 50%, #FFFF00 100%); }
-[data-theme="pop"] { background: linear-gradient(135deg, #FF69B4 0%, #00CED1 50%, #FFD700 100%); }
-[data-theme="techno"] { background: linear-gradient(135deg, #0F0F0F 0%, #00FF00 50%, #00F 100%); animation: pulse 3s infinite; }
-@keyframes pulse { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.2); } }
-[data-theme="classic"] { background: linear-gradient(135deg, #2C1810 0%, #8B4513 50%, #DAA520 100%); }
-.container { max-width: 1000px; margin: 20px auto; padding: 30px; background: rgba(0,0,0,0.8); border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); color: white; }
-header { text-align: center; margin-bottom: 30px; }
-h1 { font-size: 3em; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-.theme-btn { position: fixed; top: 20px; right: 20px; display: flex; gap: 10px; z-index: 1000; }
-.theme-btn button { font-size: 24px; padding: 10px; border: none; border-radius: 50%; cursor: pointer; background: rgba(255,255,255,0.2); }
-.api-section { display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
-.api-section select, .api-section input { padding: 12px; border-radius: 10px; border: 2px solid #444; background: rgba(255,255,255,0.1); color: white; flex: 1; min-width: 150px; }
-.chat { height: 500px; overflow-y: auto; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 15px; margin: 20px 0; }
-.msg { margin: 15px 0; padding: 15px; border-radius: 15px; max-width: 80%; animation: fadeIn 0.3s; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-.msg.user { background: rgba(100,100,255,0.3); margin-left: auto; text-align: right; }
-.msg.ai { background: rgba(0,200,100,0.3); }
-.input-area { display: flex; gap: 10px; }
-.input-area textarea { flex: 1; padding: 15px; border-radius: 15px; border: 2px solid #444; background: rgba(255,255,255,0.1); color: white; font-family: inherit; resize: vertical; min-height: 60px; }
-.input-area button { padding: 15px 30px; border-radius: 15px; border: none; background: #4CAF50; color: white; font-weight: bold; cursor: pointer; }
-.sidebar { position: fixed; right: -300px; top: 100px; width: 300px; height: calc(100vh - 120px); background: rgba(0,0,0,0.95); padding: 20px; border-radius: 15px 0 0 15px; transition: right 0.3s; overflow-y: auto; z-index: 999; }
-.sidebar.open { right: 0; }
-.toggle { position: absolute; left: -40px; top: 20px; padding: 10px 15px; border-radius: 10px 0 0 10px; background: rgba(0,0,0,0.9); color: white; cursor: pointer; border: none; font-size: 20px; }
-.history-item { padding: 10px; margin: 10px 0; background: rgba(255,255,255,0.1); border-radius: 10px; cursor: pointer; }
-.history-item:hover { background: rgba(255,255,255,0.2); }
-.auth { position: fixed; top: 20px; left: 20px; z-index: 1000; }
-.auth button { padding: 10px 20px; border-radius: 20px; border: none; cursor: pointer; background: rgba(255,255,255,0.3); font-weight: bold; }
-    </style>
+    <title>AntiGravity Nexus - Agent Station</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 </head>
-<body data-theme="reggae">
+<body class="theme-dark">
+<div class="app-container">
+    <nav class="sidebar">
+        <div class="brand">
+            <i class="ri-infinity-line"></i>
+            <span>NEXUS</span>
+        </div>
+        <div class="nav-items">
+            <button onclick="app.newChat()" class="active" title="New Agent Session">
+                <i class="ri-add-line"></i>
+            </button>
+            <button onclick="app.toggleConfig()" title="Connection Settings">
+                <i class="ri-settings-4-line"></i>
+            </button>
+        </div>
+        <div class="divider"></div>
+        <div id="history-list" class="history-scroll"></div>
+        <div class="status-indicator" id="status-dot" title="Disconnected"></div>
+    </nav>
 
-<div class="theme-btn">
-    <button onclick="changeTheme('reggae')" title="Reggae">🎵</button>
-    <button onclick="changeTheme('rap')" title="Rap">🎤</button>
-    <button onclick="changeTheme('pop')" title="Pop">✨</button>
-    <button onclick="changeTheme('techno')" title="Techno">🎧</button>
-    <button onclick="changeTheme('classic')" title="Classic">🎼</button>
+    <main class="chat-zone">
+        <header class="chat-header">
+            <div class="model-badge">
+                <span id="current-model-name">Local Agent</span>
+                <i class="ri-arrow-down-s-line"></i>
+            </div>
+        </header>
+
+        <div id="chat-stream" class="chat-stream">
+            <div class="empty-state">
+                <h1>Where do you want to go?</h1>
+                <div class="suggestion-chips">
+                    <button onclick="app.quickPrompt('Draft a Python script to automate file sorting')">Automate Files</button>
+                    <button onclick="app.quickPrompt('Design a landing page for a coffee shop')">Design UI</button>
+                    <button onclick="app.quickPrompt('Explain Quantum Entanglement simply')">Deep Research</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-zone">
+            <div class="input-wrapper">
+                <textarea 
+                    id="user-input" 
+                    placeholder="Ask anything..." 
+                    rows="1"
+                    oninput="this.style.height='';this.style.height=this.scrollHeight+'px'"
+                ></textarea>
+                <button id="send-btn" onclick="app.sendMessage()">
+                    <i class="ri-arrow-right-up-line"></i>
+                </button>
+            </div>
+            <div class="meta-info">
+                Press Enter to send • Shift+Enter for new line • Local & Cloud Enabled
+            </div>
+        </div>
+    </main>
+
+    <aside class="artifact-zone" id="artifact-panel">
+        <header class="artifact-header">
+            <div class="tabs">
+                <button class="tab active" onclick="app.switchTab('preview')">Preview</button>
+                <button class="tab" onclick="app.switchTab('code')">Code</button>
+            </div>
+            <button class="icon-btn" onclick="app.copyArtifact()" title="Copy Code">
+                <i class="ri-file-copy-line"></i>
+            </button>
+        </header>
+
+        <div class="artifact-content">
+            <div id="view-preview" class="view-layer active">
+                <iframe 
+                    id="preview-frame" 
+                    sandbox="allow-scripts" 
+                    title="Live Preview"
+                ></iframe>
+                <div class="preview-placeholder">
+                    <i class="ri-code-box-line"></i>
+                    <p>Generate HTML/Web code to see a live preview here.</p>
+                </div>
+            </div>
+            <div id="view-code" class="view-layer">
+                <pre><code id="code-display" class="language-javascript">console.log("Waiting for agent output...");</code></pre>
+            </div>
+        </div>
+    </aside>
 </div>
 
-<div class="auth">
-    <span id="user">Guest Mode</span>
-    <button onclick="alert('Login feature - add your auth system!')" id="loginBtn">Login</button>
-</div>
+<div id="config-modal" class="modal hidden">
+    <div class="modal-content">
+        <h2><i class="ri-equalizer-line"></i> Neural Connection</h2>
+        
+        <div class="form-group">
+            <label>Provider Type</label>
+            <select id="provider-select" onchange="app.updateForm()">
+                <option value="ollama">Ollama (Local)</option>
+                <option value="openai">OpenAI Compatible</option>
+                <option value="openrouter">OpenRouter (Any)</option>
+            </select>
+        </div>
 
-<div class="container">
-    <header>
-        <h1>🤖 Chris Agent</h1>
-        <p>Your Multi-API AI Assistant</p>
-    </header>
+        <div class="form-group">
+            <label>Base URL</label>
+            <input type="text" id="api-url" placeholder="http://localhost:11434/v1">
+            <small>For Ollama use: http://localhost:11434/api/chat</small>
+        </div>
 
-    <div class="api-section">
-        <select id="provider" onchange="updateProvider()">
-            <option value="openai">OpenAI</option>
-            <option value="anthropic">Anthropic Claude</option>
-            <option value="google">Google Gemini</option>
-            <option value="grok">Grok (xAI)</option>
-            <option value="custom">Custom Endpoint</option>
-        </select>
-        <input type="password" id="apiKey" placeholder="Enter API Key" />
-        <input type="text" id="model" placeholder="Model (e.g., gpt-4)" />
-    </div>
+        <div class="form-group">
+            <label>API Key</label>
+            <input type="password" id="api-key" placeholder="sk-...">
+            <small>Leave empty for Local Ollama</small>
+        </div>
 
-    <div class="chat" id="chat">
-        <div style="text-align:center; padding:50px;">
-            <h2>Welcome to Chris Agent! 👋</h2>
-            <p>Select your API provider, enter your key, and start chatting.</p>
+        <div class="form-group">
+            <label>Model Name</label>
+            <input type="text" id="model-name" placeholder="llama3, gpt-4o, deepseek-r1">
+        </div>
+
+        <div class="modal-actions">
+            <button onclick="app.toggleConfig()" class="btn-ghost">Cancel</button>
+            <button onclick="app.saveConfig()" class="btn-primary">Connect Agent</button>
         </div>
     </div>
-
-    <div class="input-area">
-        <textarea id="input" placeholder="Type your message... (Ctrl+Enter to send)" onkeydown="handleKey(event)"></textarea>
-        <button onclick="send()">Send</button>
-    </div>
 </div>
 
-<div class="sidebar" id="sidebar">
-    <h3>💬 History</h3>
-    <div id="history"></div>
-    <button class="toggle" onclick="toggleSidebar()">≡</button>
-</div>
-
-<script>
-let conversations = [];
-let currentConv = [];
-
-function changeTheme(theme) {
-    document.body.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-}
-
-function updateProvider() {
-    const provider = document.getElementById('provider').value;
-    const modelInput = document.getElementById('model');
-    const defaults = {
-        openai: 'gpt-4',
-        anthropic: 'claude-3-sonnet-20240229',
-        google: 'gemini-pro',
-        grok: 'grok-beta',
-        custom: ''
-    };
-    modelInput.placeholder = `Model (e.g., ${defaults[provider]})`;
-}
-
-function handleKey(e) {
-    if (e.ctrlKey && e.key === 'Enter') {
-        send();
-    }
-}
-
-async function send() {
-    const input = document.getElementById('input');
-    const message = input.value.trim();
-    if (!message) return;
-
-    const apiKey = document.getElementById('apiKey').value;
-    const provider = document.getElementById('provider').value;
-    const model = document.getElementById('model').value;
-
-    if (!apiKey) {
-        alert('Please enter your API key!');
-        return;
-    }
-
-    addMessage('user', message);
-    input.value = '';
-
-    addMessage('ai', 'Thinking...');
-
-    try {
-        const response = await callAPI(provider, apiKey, model, message);
-        updateLastMessage(response);
-        currentConv.push({role: 'user', content: message}, {role: 'assistant', content: response});
-    } catch (error) {
-        updateLastMessage('Error: ' + error.message);
-    }
-}
-
-function addMessage(role, content) {
-    const chat = document.getElementById('chat');
-    const msg = document.createElement('div');
-    msg.className = 'msg ' + role;
-    msg.innerHTML = `<strong>${role === 'user' ? 'You' : 'Chris Agent'}:</strong><br>${content}`;
-    chat.appendChild(msg);
-    chat.scrollTop = chat.scrollHeight;
-}
-
-function updateLastMessage(content) {
-    const chat = document.getElementById('chat');
-    const lastMsg = chat.lastElementChild;
-    if (lastMsg) {
-        lastMsg.innerHTML = `<strong>Chris Agent:</strong><br>${content}`;
-    }
-}
-
-async function callAPI(provider, apiKey, model, message) {
-    const apis = {
-        openai: { url: 'https://api.openai.com/v1/chat/completions', model: model || 'gpt-4', headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' } },
-        anthropic: { url: 'https://api.anthropic.com/v1/messages', model: model || 'claude-3-sonnet-20240229', headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'Content-Type': 'application/json' } },
-        google: { url: `https://generativelanguage.googleapis.com/v1beta/models/${model || 'gemini-pro'}:generateContent?key=${apiKey}`, headers: { 'Content-Type': 'application/json' } },
-        grok: { url: 'https://api.x.ai/v1/chat/completions', model: model || 'grok-beta', headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' } }
-    };
-
-    const config = apis[provider];
-    if (!config) throw new Error('Provider not supported');
-
-    let body;
-    if (provider === 'anthropic') {
-        body = { model: config.model, messages: [{role: 'user', content: message}], max_tokens: 1024 };
-    } else if (provider === 'google') {
-        body = { contents: [{parts: [{text: message}]}] };
-    } else {
-        body = { model: config.model, messages: [{role: 'user', content: message}] };
-    }
-
-    const res = await fetch(config.url, {
-        method: 'POST',
-        headers: config.headers,
-        body: JSON.stringify(body)
-    });
-
-    if (!res.ok) throw new Error(`API error: ${res.status}`);
-
-    const data = await res.json();
-
-    if (provider === 'anthropic') return data.content[0].text;
-    if (provider === 'google') return data.candidates[0].content.parts[0].text;
-    return data.choices[0].message.content;
-}
-
-function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('open');
-}
-
-function saveConv() {
-    if (currentConv.length > 0) {
-        conversations.push({date: new Date().toLocaleString(), messages: [...currentConv]});
-        localStorage.setItem('conversations', JSON.stringify(conversations));
-        updateHistory();
-    }
-}
-
-function updateHistory() {
-    const history = document.getElementById('history');
-    history.innerHTML = conversations.map((conv, i) => 
-        `<div class="history-item" onclick="loadConv(${i})">${conv.date}</div>`
-    ).join('');
-}
-
-function loadConv(index) {
-    const conv = conversations[index];
-    const chat = document.getElementById('chat');
-    chat.innerHTML = '';
-    conv.messages.forEach(msg => addMessage(msg.role === 'user' ? 'user' : 'ai', msg.content));
-    currentConv = [...conv.messages];
-}
-
-window.onload = () => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) changeTheme(savedTheme);
-    
-    const saved = localStorage.getItem('conversations');
-    if (saved) {
-        conversations = JSON.parse(saved);
-        updateHistory();
-    }
-};
-
-window.onbeforeunload = () => saveConv();
-</script>
+<script type="module" src="app.js"></script>
 </body>
 </html>
